@@ -48,7 +48,7 @@ resource "aws_subnet" "subnet_1" {
 
 }
 
-#Create subnet #1 in us-east-1
+#Create subnet # in us-east-1
 resource "aws_subnet" "subnet_2" {
   provider          = aws.region-master
   availability_zone = element(data.aws_availability_zones.azs.names, 1)
