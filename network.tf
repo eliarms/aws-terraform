@@ -48,7 +48,7 @@ resource "aws_subnet" "subnet_1" {
 
 }
 
-#Create subnet # in us-east-1
+#Create subnet #1 in us-east-1
 resource "aws_subnet" "subnet_2" {
   provider          = aws.region-master
   availability_zone = element(data.aws_availability_zones.azs.names, 1)
@@ -102,7 +102,7 @@ resource "aws_route_table" "internet_route" {
 }
 
 #Overwrite default route table of VPC(Master) with our route table entries
-resource "aws_main_route_table_association" "set-master-defalt-rt-assoc" {
+resource "aws_main_route_table_association" "set-master-default-rt-assoc" {
   provider       = aws.region-master
   route_table_id = aws_route_table.internet_route.id
   vpc_id         = aws_vpc.vpc_master.id
