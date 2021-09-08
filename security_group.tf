@@ -21,8 +21,8 @@ resource "aws_security_group" "lb-sg" {
   }
   egress {
     from_port   = 0
-    protocol    = 0
-    to_port     = -1
+    protocol    = "-1"
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -36,9 +36,9 @@ resource "aws_security_group" "jenkins-sg" {
   vpc_id      = aws_vpc.vpc_master.id
   ingress {
     description     = "Allow anyone on port 8080"
-    from_port       = 8080
+    from_port       = var.webserver-port
     protocol        = "tcp"
-    to_port         = 8080
+    to_port         = var.webserver-port
     security_groups = [aws_security_group.lb-sg.id]
   }
   ingress {
@@ -57,8 +57,8 @@ resource "aws_security_group" "jenkins-sg" {
   }
   egress {
     from_port   = 0
-    protocol    = 0
-    to_port     = "-1"
+    protocol    = "-1"
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -68,7 +68,7 @@ resource "aws_security_group" "jenkins-sg" {
 resource "aws_security_group" "jenkins-sg-oregon" {
   name        = "jenkins-sg-oregon"
   provider    = aws.region-worker
-  description = "Allow TCP/8080 and TCP/22"
+  description = "Allow TCP/80 and TCP/22"
   vpc_id      = aws_vpc.vpc_master_oregon.id
   ingress {
     description = "Allow 22 from our public IP"
@@ -86,8 +86,8 @@ resource "aws_security_group" "jenkins-sg-oregon" {
   }
   egress {
     from_port   = 0
-    protocol    = 0
-    to_port     = "-1"
+    protocol    = "-1"
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
 }

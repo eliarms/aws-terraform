@@ -9,3 +9,7 @@ output "jenkins-Worker-Public-IPs" {
   }
 
 }
+#Add LB DNS name to outputs
+output "LB-DNS-NAME" {
+  value = aws_lb.application-lb.dns_name
+}
